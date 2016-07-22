@@ -6,6 +6,9 @@
         <th>Name</th>
         <th>Email</th>
         <th>Account Type</th>
+        <th>Rate</th>
+        <th>Commends</th>
+        <th>Reports</th>
         <th>Created At</th>
         <th></th>
         <th></th>
@@ -15,7 +18,9 @@
         <% @user.to_a.each do |user| %>
         <tr>
             <td><%= user.username %></td>
+            
             <td><%= user.email %></td>
+            
             <td>
                 <% if user.guest %>
                     <%= "GUEST" %>
@@ -25,6 +30,13 @@
                     <%= "STANDARD" %>
                 <% end %>
             </td>
+            <!--Rating-->
+            <td>
+                <%= link_to image_tag("thumbsup.svg", alt: "Commend", size: "20x20" ), commend_path(user), method: :put %>
+                <%= link_to image_tag("thumbsdown.svg", alt: "Commend", size: "20x20" ), commend_path(user), method: :put %>
+            </td>
+            <td><%= user.commends %></td>
+            <td><%= user.reports %></td>
             <td><%= user.created_at %></td>
             <td>
                   <% if current_user.admin_user? && !current_user?(user) %>
@@ -37,6 +49,7 @@
                         <%= link_to "Promote to Admin", user_promote_url(user), remote: true, data: { confirm: "You sure?" } %>
                   <% end %>
             </td>
+            
         </tr>
         <% end %>
     </tbody>

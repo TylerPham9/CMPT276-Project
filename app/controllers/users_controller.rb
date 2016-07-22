@@ -72,13 +72,13 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
-    redirect_to admin_url
+    redirect_to :back
   end
   
   def destroy_old_guests
     User.where(guest: true).destroy_all
     flash[:success] = "All guests deleted"
-    redirect_to admin_url
+    redirect_to :back
   end
   
   def promote
@@ -86,13 +86,34 @@ class UsersController < ApplicationController
     if !@user.admin_user?
       @user.update_attribute(:admin_user, true)
       flash[:success] = "User is promoted to admin."
-      redirect_to admin_url
+      redirect_to :back
     else
       flash[:danger] = "Admins can't demote other admins."
-      redirect_to admin_url
+      redirect_to :back
     end
   end
     
+
+
+  def commend
+    @user = User.find(params[:id])
+    if @user.id == current_user.id
+      flash[:danger] = "You cant commend yourself."
+    else
+      @user.update_attribute(:commends, user.commends + 1)
+    end
+    redirect_to :back
+  end
+  
+  def report
+    @user = User.find(params[:id])
+    if @user.id == current_user.id
+      flash[:danger] = "You cant report yourself."
+    else
+      @user.update_attribute(:reports, user.reports + 1)
+    end
+    redirect_to :back
+  end
   
   private
     def users_params
@@ -126,6 +147,6 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless !current_user.guest?
     end
     
+
     
-    
-  end
+end

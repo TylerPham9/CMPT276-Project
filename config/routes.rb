@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       get 'destroy_old_guests'
     end
   end
+  put "users/:id/commend" => "users#commend", :as => "commend"
+  put "users/:id/report" => "users#report", :as => "report"
   get "users/:id/promote" => "users#promote", :as => "promote"
 
   # get "users/:id/destroy_old_guests" => "users#destroy_old_guests", :as => "destroy_old_guests"
