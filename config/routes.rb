@@ -20,8 +20,11 @@ Rails.application.routes.draw do
 
   resources :users do
     put 'promote'
+    # put 'commend'
+    # put 'report'
     collection do
       get 'destroy_old_guests'
+
     end
   end
   put "users/:id/commend" => "users#commend", :as => "commend"

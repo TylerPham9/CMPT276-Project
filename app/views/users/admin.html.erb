@@ -33,11 +33,14 @@
             <!--Rating-->
             <td>
                 <%= link_to image_tag("thumbsup.svg", alt: "Commend", size: "20x20" ), commend_path(user), method: :put %>
-                <%= link_to image_tag("thumbsdown.svg", alt: "Commend", size: "20x20" ), commend_path(user), method: :put %>
+                <%= link_to image_tag("thumbsdown.svg", alt: "Commend", size: "20x20" ), report_path(user), method: :put %>
             </td>
+            
             <td><%= user.commends %></td>
             <td><%= user.reports %></td>
+            
             <td><%= user.created_at %></td>
+            
             <td>
                   <% if current_user.admin_user? && !current_user?(user) %>
                     <%= link_to "Delete", user, method: :delete,

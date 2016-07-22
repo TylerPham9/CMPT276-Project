@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :isadmin_user,   only: [:destroy, :promote, :admin, :destroy_old_guests]
@@ -72,13 +74,13 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
-    redirect_to :back
+    redirect_to admin_url
   end
   
   def destroy_old_guests
     User.where(guest: true).destroy_all
     flash[:success] = "All guests deleted"
-    redirect_to :back
+    redirect_to admin_url
   end
   
   def promote
@@ -86,33 +88,36 @@ class UsersController < ApplicationController
     if !@user.admin_user?
       @user.update_attribute(:admin_user, true)
       flash[:success] = "User is promoted to admin."
-      redirect_to :back
     else
       flash[:danger] = "Admins can't demote other admins."
-      redirect_to :back
     end
+    redirect_to admin_url
   end
     
 
 
   def commend
-    @user = User.find(params[:id])
-    if @user.id == current_user.id
+    # @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    if @user == current_user
       flash[:danger] = "You cant commend yourself."
     else
-      @user.update_attribute(:commends, user.commends + 1)
+      @user.increment(:commends, 1)
     end
-    redirect_to :back
+    redirect_to admin_url
   end
   
   def report
-    @user = User.find(params[:id])
-    if @user.id == current_user.id
+    # @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    # @user = User.find_by(email: params[:email])
+    if @user == current_user
       flash[:danger] = "You cant report yourself."
     else
-      @user.update_attribute(:reports, user.reports + 1)
+      @user.increment(:reports, 1)
     end
-    redirect_to :back
+    # redirect_back_or_to signin_path
+    redirect_to admin_url
   end
   
   private
