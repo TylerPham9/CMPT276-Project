@@ -85,8 +85,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   
   test "reporting another user" do
     log_in_as(@user)
-    reportCount = @other_user.reports
-    put report_path(@other_user)
+    assert_difference '@other_user.reports', 1 do
+      put report_path(@other_user)
+    end
+    # reportCount = @other_user.reports
+    
     assert flash.empty?
     # assert_not_equal @other_user.reports, reportCount, "the report count is #{reportCount}, actual count is #{@other_user.reports}"
   end

@@ -19,17 +19,18 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   resources :users do
-    put 'promote'
-    # put 'commend'
-    # put 'report'
+    # put 'promote'
+    # put 'commend
     collection do
       get 'destroy_old_guests'
-
+      put "promote"
+      put "report"
+      put "commend"
     end
   end
   put "users/:id/commend" => "users#commend", :as => "commend"
   put "users/:id/report" => "users#report", :as => "report"
-  get "users/:id/promote" => "users#promote", :as => "promote"
+  put "users/:id/promote" => "users#promote", :as => "promote"
 
   # get "users/:id/destroy_old_guests" => "users#destroy_old_guests", :as => "destroy_old_guests"
   # map.resources :users, :collection => { :destroy_old_guests => :get}

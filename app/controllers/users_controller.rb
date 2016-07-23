@@ -103,6 +103,7 @@ class UsersController < ApplicationController
       flash[:danger] = "You cant commend yourself."
     else
       @user.increment(:commends, 1)
+      @user.save
     end
     redirect_to admin_url
   end
@@ -115,6 +116,7 @@ class UsersController < ApplicationController
       flash[:danger] = "You cant report yourself."
     else
       @user.increment(:reports, 1)
+      @user.save
     end
     # redirect_back_or_to signin_path
     redirect_to admin_url
