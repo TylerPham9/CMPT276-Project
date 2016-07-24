@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+<<<<<<< HEAD
 
 
 jQuery(document).ready(function() {
@@ -25,3 +26,5 @@ jQuery(document).ready(function() {
     });
   }, 1);
 });
+=======
+>>>>>>> parent of 8564f41... added automatic realtime refresh on clients when a view is updated
