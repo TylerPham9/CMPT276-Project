@@ -10,21 +10,3 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require bootstrap
-//= require_tree .
-<<<<<<< HEAD
-
-
-jQuery(document).ready(function() {
-  setTimeout(function() {
-    var source = new EventSource('/browser');
-    source.addEventListener('refresh', function(e) {
-      window.location.reload();
-    });
-  }, 1);
-});
-=======
->>>>>>> parent of 8564f41... added automatic realtime refresh on clients when a view is updated
