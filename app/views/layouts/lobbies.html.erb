@@ -28,7 +28,7 @@
                         <% if current_user.guest %>
                             <li><%= link_to(current_user.username, ) %></li>
                         <% else %>
-                            <li><%= link_to(current_user.username, user_path(current_user)) %></li>
+                            <li id="usernameID"><%= link_to(current_user.username, user_path(current_user)) %></li>
                         <% end %>
                         <li><%= link_to "Log out", logout_path, method: :delete %></li>
                 </ul>
