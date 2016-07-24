@@ -1,7 +1,49 @@
+<head>
+
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
+</head>
+
+
+
+
+
+
+
 <% provide(:title, 'Game Two') %>
-<h1>Multiplayer</h1>
+<h1 align="center">Multiplayer</h1>
+<style>
+	#mainWrapper {
+		margin:0 auto;
+		width:800px;
+	}
+	#labels{
+		text-align: center;
+	}
+	
+</style>
 <script src="http://cdn.pubnub.com/pubnub-3.4.4.js"></script>
 
+
+
+
+
+<div id="userList" class="table-bordered userList" ></div>
+
+<div id="chatHistory" class="table-bordered chatHistory"></div>
+
+<input type="text" id="message" placeholder="Enter your message here" class="message"/>
+
+<button id="sendButton" class="btn btn-primary sendButton">Send</button>
+
+
+
+
+
+
+
+<div id="labels">
 	<section id="main">
 		<section id="colorSwatch">
 			<input type="radio" name="color" id="color01" data-color="black" checked><label for="color01">BLACK</label> 
@@ -11,8 +53,11 @@
 		</section>
 		Currently Online: <span id="occupancy">0</span>
 	</section>
-
-	<canvas id="drawCanvas" width="800px" height="600px" style="border:1px solid #CCC">DrawParty is not supported on this browser!</canvas>
+</div>	
+	
+<div id="mainWrapper">
+	<canvas id="drawCanvas" width="800px" height="500px" style="border:1px solid #CCC">DrawParty is not supported on this browser!</canvas>
+</div>
 	<script>
 		(function() {
 
@@ -23,6 +68,7 @@
 
 	canvas.width = 800;
 	canvas.height = 500;
+
 	 
 	ctx.strokeStyle = color;
 	ctx.lineWidth = '5';
@@ -132,3 +178,49 @@
 
 		
 	</script>
+	
+	
+	
+	
+	<script type="text/javascript">
+		(function() { 
+			var publish_key = 'pub-c-39594782-c4b0-4fb3-80fe-74e262353bf6';
+			var subscribe_key = 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe';
+			channel = 'ChatRoomDemo';
+			var username = document.getElementById("usernameID").innerHTML;
+			pubnub =PUBNUB.init({
+				publish_key : publish_key,
+				subscribe_key : subscribe_key,
+				uuid : username
+			});
+			pubnub.subscribe({
+				channel : channel,
+				callback : function(message) { 
+					$('#chatHistory')[0].innerHTML = message + '<br/>' + $('#chatHistory')[0].innerHTML; 
+				},
+				presence : function(state) { 
+					if (state.action == 'join') {
+						if ($('#userList').text().indexOf(state.uuid) == -1) {
+							$('#userList')[0].innerHTML = state.uuid + '<br/>' + $('#userList')[0].innerHTML;
+						}
+					} else if (state.action == 'leave' || state.action == 'timeout') { 
+						var index = $('#userList')[0].innerHTML.indexOf(state.uuid);
+						if ( index !== -1) {
+							$('#userList')[0].innerHTML = 
+								$('#userList')[0].innerHTML.substring(0,index) + 
+								$('#userList')[0].innerHTML.substring(index+state.uuid.length+4);
+						}
+					}
+					
+				}
+			});
+			pubnub.bind('click', pubnub.$('sendButton'), function(e) { 
+				pubnub.publish({
+					channel : channel, 
+					message : pubnub.get_uuid() + ' : '  + $('#message').val()
+				});
+				$('#message').val('');
+			});
+		})();
+	</script>
+
