@@ -1,3 +1,78 @@
 <% provide(:title, 'Game Three ') %>
-<p>Game three list</p>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="//cdn.pubnub.com/pubnub.min.js"></script>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Lobby Chat</div>
+  <ul class="list-group" id="chat-output"></ul>
+  <div class="panel-body">
+    <form id="chat">
+      <div class="input-group">
+        <input type="text" class="form-control" id="chat-input" />
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default">Send Message</button>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Instantiate PubNub -->
+<script type="text/javascript">
+ 
+// use jQuery to find the DOM elements we care about
+var $input = $('#chat-input'); // where the user inputs chat text
+var $output = $('#chat-output'); // where output is sent
+
+// start pubnub
+var pubnub = PUBNUB.init({
+	var publish_key = 'pub-c-39594782-c4b0-4fb3-80fe-74e262353bf6';
+	var subscribe_key = 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe';
+});
+
+var channel = 'Game3';
+
+// when the "send message" form is submitted
+$('#chat').submit(function() {
+    
+  // publish input value to channel 
+  pubnub.publish({
+    channel: channel,
+    message: $input.val()
+  });
+  
+  // clear the input field
+  $input.val('');
+  
+   // cancel event bubbling
+  return false;
+  
+});
+
+
+// when we receive messages
+pubnub.subscribe({
+  channel: channel, // our channel name
+  message: function(text) { // this gets fired when a message comes in
+    
+    // create a new line for chat text
+    var $line = $('<li class="list-group-item" />');
+    
+    // filter out html from messages
+    var $message = $('<span class="text" />').text(text).html();
+    
+    // build the html elements
+    $line.append($message);
+    $output.append($line);
+    
+    // scroll the chat output to the bottom
+    $output.scrollTop($output[0].scrollHeight);
+
+  }
+});
+
+</script>
+ 
