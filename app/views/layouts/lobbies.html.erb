@@ -16,7 +16,7 @@
         <div class = "navHeader container-fluid">
             <!--<nav>-->
                 <ul class ="nav navbar-nav">
-                    <li><%= link_to 'Home', "/" %></li>
+                    <li id=linktohome><%= link_to 'Home', "/" %></li>
                     <li><%= link_to 'GameOne', '/lobbies', :class => is_active?("GameOne") %></li>
                     <li><%= link_to 'GameTwo', '/lobbies/GameTwo', :class => is_active?("GameTwo") %></li>
                     <li><%= link_to 'GameThree', '/lobbies/GameThree', :class => is_active?("GameThree") %></li>
