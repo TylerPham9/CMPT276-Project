@@ -1,31 +1,49 @@
 .userList {
     margin-top: 15px;
 	height:500px; 
-	width:100px; 
+	width:150px; 
 	background-color:#E6E6E6; 
+	position: absolute; 
+	top:0; 
+	left:200px;
 	
-	float:left;
+
 }
 
 .chatHistory {
 	height:500px; 
-	width:500px; 
+	width:350px; 
+	position: absolute; 
+	top:0; 
+	right:0;
 	background-color:#E6E6E6; 
 	
-	float:right;
+
 }
 
 .message {
-	width: 600px;
+	width:700px;
+	height:40px;
 	position: absolute;
-	top: 80%;
-	left: 25%;
+	margin:auto;
+	left:400px;
+	bottom:100px;
+	/*top: 80%;
+	left: 25%;*/
+
 }
 
 .sendButton {
+	
 	position: absolute;
-	top: 80%;
-	left: 70%;
+	
+	right:380px;
+	bottom:100px;
+	
+	height:40px;
+	width:100px;
+	/*top: 80%;
+	left: 70%;*/
 }
 
 .leaveButton {
