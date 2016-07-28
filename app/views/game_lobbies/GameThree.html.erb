@@ -1,10 +1,5 @@
 <% provide(:title, 'Game Three ') %>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="//cdn.pubnub.com/pubnub.min.js"></script>
-
 <div class="panel panel-default">
   <div class="panel-heading">Lobby Chat</div>
   <ul class="list-group" id="chat-output"></ul>
@@ -20,12 +15,12 @@
   </div>
 </div>
 
-<!-- Instantiate PubNub -->
 <script type="text/javascript">
  
 // use jQuery to find the DOM elements we care about
 var $input = $('#chat-input'); // where the user inputs chat text
 var $output = $('#chat-output'); // where output is sent
+var channel = 'Game3';
 
 // start pubnub
 var pubnub = PUBNUB.init({
@@ -33,7 +28,6 @@ var pubnub = PUBNUB.init({
 	var subscribe_key = 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe';
 });
 
-var channel = 'Game3';
 
 // when the "send message" form is submitted
 $('#chat').submit(function() {
