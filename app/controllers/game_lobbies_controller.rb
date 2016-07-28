@@ -1,6 +1,8 @@
 class GameLobbiesController < ApplicationController
   layout 'lobbies'
-
+  def playerIndex
+    @user = User.all
+  end 
   def GameOne
   end
 

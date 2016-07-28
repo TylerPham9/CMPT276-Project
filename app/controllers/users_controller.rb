@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
 
-
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :isadmin_user,   only: [:destroy, :promote, :admin, :destroy_old_guests]
@@ -91,6 +90,8 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "Admins can't demote other admins."
     end
+    redirect_to :back
+    rescue ActionController::RedirectBackError
     redirect_to admin_url
   end
     
@@ -105,7 +106,9 @@ class UsersController < ApplicationController
       @user.increment(:commends, 1)
       @user.save
     end
-    redirect_to admin_url
+    redirect_to :back
+    rescue ActionController::RedirectBackError
+    redirect_to root_path
   end
   
   def report
@@ -119,7 +122,9 @@ class UsersController < ApplicationController
       @user.save
     end
     # redirect_back_or_to signin_path
-    redirect_to admin_url
+    redirect_to :back
+    rescue ActionController::RedirectBackError
+    redirect_to root_path
   end
   
   private

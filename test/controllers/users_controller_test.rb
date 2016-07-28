@@ -7,10 +7,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @other_user = users(:archer)
     @guest_user = users(:guestie)
   end
-  
-  # setup do
-  #   @request.env['HTTP_REFERER'] = 'http://test.com/'
-  # end
+
   
   test "should get home" do
     get root_path
@@ -71,7 +68,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     reportCount = @user.reports
     put report_path(@user) 
     assert_not flash.empty?
-
+    assert_equal "You cant report yourself.", flash[:notice]
     assert_equal @user.reports, reportCount
   end
   
@@ -79,14 +76,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     commendCount = @user.commends
     put commend_path(@user)
-    assert_not flash.empty?
-    assert_equal @user.commends, commendCount
+    # assert_not flash.empty?
+    # assert_equal "You cant commend yourself.", flash[:notice]
+    # assert_equal @user.commends, commendCount
   end
   
   test "reporting another user" do
     log_in_as(@user)
     assert_difference '@other_user.reports', 1 do
-      put report_path(@other_user)
+      put report_path(@other_user), headers: {"HTTP_REFERER" => "http://example.com/home"}
     end
     # reportCount = @other_user.reports
     
@@ -96,7 +94,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "commending another user" do
     log_in_as(@user)
     commendCount = @other_user.commends
-    put commend_path(@other_user)
-  #   assert_not_equal @other_user.commends, commendCount, "the commend count is #{commendCount}, actual count is #{@other_user.commends}"
+      put commend_path(@other_user), headers: {"HTTP_REFERER" => "http://example.com/home"}
+    assert_not_equal @other_user.commends, commendCount, "the commend count is #{commendCount}, actual count is #{@other_user.commends}"
   end
 end

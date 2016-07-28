@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
   get 'admin' => 'users#admin'
+  get 'playerIndex' => 'game_lobbies#playerIndex'
 
   get 'lobbies' => 'game_lobbies#GameOne'
   get 'lobbies/GameTwo' => 'game_lobbies#GameTwo'
