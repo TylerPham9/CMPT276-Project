@@ -31,6 +31,7 @@
 var $input = $('#chat-input'); // where the user inputs chat text
 var $output = $('#chat-output'); // where output is sent
 var channel = 'Game3';
+var userName = "<%= current_user.username%>";
 
 // start pubnub
 var pubnub = PUBNUB.init({
@@ -45,7 +46,11 @@ $('#chat').submit(function() {
   // publish input value to channel 
   pubnub.publish({
     channel: channel,
-    message: $input.val()
+    message: {
+      text: $input.val(),
+      uuid: userName
+    }
+    
   });
   
   // clear the input field
@@ -60,13 +65,15 @@ $('#chat').submit(function() {
 // when we receive messages
 pubnub.subscribe({
   channel: channel, // our channel name
-  message: function(text) { // this gets fired when a message comes in
+  message: function(data) { // this gets fired when a message comes in
     
     // create a new line for chat text
-    var $line = $('<li class="list-group-item" />');
+   // var $line = $('<li class="list-group-item" />');
+   var $line = $('<li><strong>' + data.uuid + ':</strong> </span>');
     
     // filter out html from messages
-    var $message = $('<span class="text" />').text(text).html();
+   // var $message = $('<span class="text" />').text(text).html();
+   var $message = $('<span />').text(data.text).html();
     
     // build the html elements
     $line.append($message);
