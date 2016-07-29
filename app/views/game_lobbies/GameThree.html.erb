@@ -3,6 +3,7 @@
 <style>
   body {
   padding: 10px;
+  padding-left: 0px;
 }
 #chat-output {
   height: 450px;
@@ -10,9 +11,18 @@
 }
 </style>
 
-<div class="panel panel-default">
-  <div class="panel-heading">Lobby Chat</div>
-  <ul class="list-group" id="chat-output" overflow-y="scroll"></ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Online Users</div>
+        <div class="list-group" id="online-users"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Live Chat</div>
+  <ul class="list-group" id="chat-output"></ul>
   <div class="panel-body">
     <form id="chat">
       <div class="input-group">
@@ -25,63 +35,79 @@
   </div>
 </div>
 
+
+      </div>
+    </div>
+  </div>
 <script type="text/javascript">
  
-// use jQuery to find the DOM elements we care about
-var $input = $('#chat-input'); // where the user inputs chat text
-var $output = $('#chat-output'); // where output is sent
+var $input = $('#chat-input'); 
+var $output = $('#chat-output'); 
 var channel = 'Game3';
-var userName = "<%= current_user.username%>";
+var user = "<%= current_user.username%>";
 
-// start pubnub
 var pubnub = PUBNUB.init({
 	 publish_key: 'pub-c-39594782-c4b0-4fb3-80fe-74e262353bf6',
-	 subscribe_key: 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe'
+	 subscribe_key: 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe',
+	 uuid: user
 });
 
 
-// when the "send message" form is submitted
 $('#chat').submit(function() {
     
-  // publish input value to channel 
+  
   pubnub.publish({
     channel: channel,
     message: {
       text: $input.val(),
-      uuid: userName
+      username: user
     }
     
   });
   
-  // clear the input field
+  
   $input.val('');
   
-   // cancel event bubbling
+ 
   return false;
   
 });
 
 
-// when we receive messages
+
 pubnub.subscribe({
-  channel: channel, // our channel name
-  message: function(data) { // this gets fired when a message comes in
+  channel: channel, 
+  message: function(data) { 
+  
     
-    // create a new line for chat text
-   // var $line = $('<li class="list-group-item" />');
-   var $line = $('<li><strong>' + data.uuid + ':</strong> </span>');
+    var $line = $('<li class="list-group-item"><strong>' + data.username + ':</strong> </span>');
+    var $message = $('<span class="text" />').text(data.text).html();
     
-    // filter out html from messages
-   // var $message = $('<span class="text" />').text(text).html();
-   var $message = $('<span />').text(data.text).html();
-    
-    // build the html elements
     $line.append($message);
     $output.append($line);
     
-    // scroll the chat output to the bottom
+    
     $output.scrollTop($output[0].scrollHeight);
 
+  },
+  
+  presence: function(data)
+  {
+    console.log(data);
+    
+      if(data.action == "join")
+      {
+         var $new_user = $('<li id="' + data.uuid + '"class="list-group-item">' + data.uuid + '</li>')
+         $('#online-users').append($new_user);
+      }
+    
+    if(data.action == "leave" || data.action == "timeout") 
+    {
+        $('#' + data.uuid).remove();
+    }
+    
+    
+    
   }
 });
 
