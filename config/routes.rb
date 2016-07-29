@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'browser' => 'browser#index'
   get 'help' => 'users#help'
   get 'about' => 'users#about'
   get 'signup' => 'users#new'
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
+  get 'logout' => 'sessions#destroy'
 
   resources :users do
     # put 'promote'
