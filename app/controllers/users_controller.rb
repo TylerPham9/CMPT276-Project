@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
+  before_action :logged_in_user, only: [:edit, :update, :destroy, :report, :commend]
   before_action :correct_user,   only: [:edit, :update]
   before_action :isadmin_user,   only: [:destroy, :promote, :admin, :destroy_old_guests]
   # before_action :update,         only: [:isnotguest_user] 
@@ -88,7 +88,7 @@ class UsersController < ApplicationController
       @user.update_attribute(:admin_user, true)
       flash[:success] = "User is promoted to admin."
     else
-      flash[:danger] = "Admins can't demote other admins."
+      flash[:danger] = "User is already admin."
     end
     redirect_to :back
     rescue ActionController::RedirectBackError
@@ -103,6 +103,7 @@ class UsersController < ApplicationController
     if @user == current_user
       flash[:danger] = "You cant commend yourself."
     else
+      flash[:success] = "Thank you for commending " + @user.username
       @user.increment(:commends, 1)
       @user.save
     end
@@ -118,6 +119,7 @@ class UsersController < ApplicationController
     if @user == current_user
       flash[:danger] = "You cant report yourself."
     else
+      flash[:success] = "Thank you for reporting " + @user.username
       @user.increment(:reports, 1)
       @user.save
     end

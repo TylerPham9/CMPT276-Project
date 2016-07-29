@@ -12,6 +12,8 @@ class GameLobbiesController < ApplicationController
   def GameThree
   end
 
+
+
   def GameFour
   end
 end
