@@ -31,7 +31,7 @@
                         <% else %>
                             <li id="usernameID"><%= link_to(current_user.username, user_path(current_user)) %></li>
                         <% end %>
-                        <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                        <li id="log-out"><%= link_to "Log out", logout_path, method: :delete %></li>
                 </ul>
             <!--</nav>-->
         </div>
