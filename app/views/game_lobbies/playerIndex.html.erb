@@ -4,6 +4,7 @@
     <tr>        
         <th>Name</th>
         <th>Rate</th>
+        <th>First Started Playing</th>
     </tr>
     <tbody>
          <% @user.to_a.each do |user| %>
@@ -14,6 +15,7 @@
                         <%= link_to image_tag("thumbsup.svg", alt: "Commend", size: "20x20" ), commend_url(user), method: :put %>
                         <%= link_to image_tag("thumbsdown.svg", alt: "Commend", size: "20x20" ), report_url(user), method: :put %>
                     </td>
+                    <td><%= user.created_at.strftime("%Y-%m-%d") %></td>
                 </tr>
             <% end %>
         <% end %>
