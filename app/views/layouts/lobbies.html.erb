@@ -18,7 +18,7 @@
                 <ul class ="nav navbar-nav">
                     <li id=linktohome><%= link_to 'Home', "/" %></li>
                     <li><%= link_to 'Player List', "/playerIndex" %></li>
-                    <li><%= link_to 'GameOne', '/lobbies', :class => is_active?("GameOne") %></li>
+                    <li><%= link_to 'GameOne', '/lobbies/GameOne', :class => is_active?("GameOne") %></li>
                     <li><%= link_to 'GameTwo', '/lobbies/GameTwo', :class => is_active?("GameTwo") %></li>
                     <li><%= link_to 'GameThree', '/lobbies/GameThree', :class => is_active?("GameThree") %></li>
                     <li><%= link_to 'GameFour', '/lobbies/GameFour', :class => is_active?("GameFour") %></li>
