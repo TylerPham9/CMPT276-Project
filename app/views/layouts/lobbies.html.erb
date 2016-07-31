@@ -17,7 +17,7 @@
                     <li><%= link_to image_tag("title.svg", height: '57.5px', width: '190px', alt: "DrawParty"), "/" %></li>
                     <li id=linktohome><%= link_to 'Home', "/" %></li>
                     <li><%= link_to 'Player List', "/playerIndex" %></li>
-                    <li><%= link_to 'GameOne', '/lobbies', :class => is_active?("GameOne") %></li>
+                    <li><%= link_to 'GameOne', '/lobbies/GameOne', :class => is_active?("GameOne") %></li>
                     <li><%= link_to 'GameTwo', '/lobbies/GameTwo', :class => is_active?("GameTwo") %></li>
                     <li><%= link_to 'GameThree', '/lobbies/GameThree', :class => is_active?("GameThree") %></li>
                     <li><%= link_to 'GameFour', '/lobbies/GameFour', :class => is_active?("GameFour") %></li>
@@ -30,7 +30,7 @@
                         <% else %>
                             <li id="usernameID"><%= link_to(current_user.username, user_path(current_user)) %></li>
                         <% end %>
-                        <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                        <li id="log-out"><%= link_to "Log out", logout_path, method: :delete %></li>
                 </ul>
             <!--</nav>-->
         </div>

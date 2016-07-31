@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
   get 'admin' => 'users#admin'
   get 'playerIndex' => 'game_lobbies#playerIndex'
-
-  get 'lobbies' => 'game_lobbies#GameOne'
+  
+  
+  get 'lobbies' => 'game_lobbies#GameLobby'
+  get 'lobbies/GameOne' => 'game_lobbies#GameOne'
   get 'lobbies/GameTwo' => 'game_lobbies#GameTwo'
   get 'lobbies/GameThree' => 'game_lobbies#GameThree'
   get 'lobbies/GameFour' => 'game_lobbies#GameFour'
-
+  get 'lobbies/GameLobby' => 'game_lobbies#GameLobby'
   root 'users#home'
 
   get 'login' => 'sessions#new'
