@@ -10,13 +10,10 @@
 
 <body>
     <div class="header navbar-static-top">
-
-        <%= link_to image_tag("title.svg", alt: "DrawParty"), "/" %>
-
-
         <div class = "navHeader container-fluid">
             <!--<nav>-->
                 <ul class ="nav navbar-nav">
+                    <li><%= link_to image_tag("title.svg", height: '57.5px', width: '190px', alt: "DrawParty"), "/" %></li>
                     <li><%= link_to 'Home', "/", :class => is_active?("home") %></li>
                     <li><%= link_to 'About', '/about', :class => is_active?("about") %></li>
                     <li><%= link_to 'Help', '/help', :class => is_active?("help") %></li>

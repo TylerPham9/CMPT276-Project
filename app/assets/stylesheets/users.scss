@@ -24,21 +24,13 @@ html {
 }
 
 .header {
-    padding: 25px 25px 0px 25px;
-    background-color: rgba(255,255,255, 0.6);
-    border-bottom: 3px solid $dark-color ;
+    background-color: black;
     font-size: 200%;
-}
-.navHeader {
-    margin-top: 25px;
-    border-top: 3px solid $dark-color;
 }
 
 // 
 .userIndex {
     border-collapse: collapse;
-
-
 }
 
 .userIndex tbody tr th {
@@ -46,7 +38,6 @@ html {
     min-width: 75px;
     padding: 5px;
     border: 1px solid $dark-color;
-    
 }
 
 .userIndex tbody tr td {
@@ -54,16 +45,6 @@ html {
     border: 1px solid $dark-color;
     text-align: center;
 }
-
-// .container {
-//     margin-top: 10px;
-//     background-color: rgba(255,255,255, 0.6);
-//     width: 80%;
-//     border-radius: 25px;
-//     padding: 25px;
-//     border: 3px solid $dark-color;
-//     background:#FFF;
-// }
 
 #canvas {
     background: #FFFFFF;

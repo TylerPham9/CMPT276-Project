@@ -10,11 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ // @import "bootstrap-sprockets";
+ // @import "bootstrap";
+
  *= require_tree .
  *= require_self
  */
-// @import "bootstrap-sprockets";
-// @import "bootstrap";
 
 
 
@@ -22,15 +23,18 @@ $dark-color:  #2A388F;
 $light-color: #27A9E1;
 
 body {
-    height: 100%;
+background-color:gray;
     
-    background: #2A388F;
-    background: -webkit-linear-gradient(-45deg, #FFFFFF, $light-color, $dark-color); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* Standard syntax (must be last) */
-    background-repeat: no-repeat;
 }
+//     height: 100%;
+    
+//     background: #2A388F;
+//     background: -webkit-linear-gradient(-45deg, #FFFFFF, $light-color, $dark-color); /* For Safari 5.1 to 6.0 */
+//     background: -o-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Opera 11.1 to 12.0 */
+//     background: -moz-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Firefox 3.6 to 15 */
+//     background: linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* Standard syntax (must be last) */
+//     background-repeat: no-repeat;
+// }
 
 .container {
     margin-top: 10px;
@@ -38,7 +42,12 @@ body {
     width: 1700px;
     border-radius: 25px;
     padding: 25px;
-    border: 3px solid $dark-color;
+    // border: 3px solid $dark-color;
     background:#FFF;
     
+}
+.navbar-nav > li > a{
+    line-height: 50px;
+    // padding-top: 19px;
+    // padding-bottom: 19px;
 }
