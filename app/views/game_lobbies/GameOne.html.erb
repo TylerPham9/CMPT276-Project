@@ -9,7 +9,7 @@
 
 
 <div id="draw">
-<canvas id="canvas" width="800" height="400" margin-left:178px margin-top:-12px;style="border:1px black solid;"> </canvas>
+<canvas id="canvas" width="800" height="400" margin-left:400px; style="border:solid black 2px;"> </canvas>
 <br>
 <label>Colors</label>
 <input class="button" type="button" value="red" onClick="linecolor='red'">
@@ -61,8 +61,8 @@ rect.fillRect=(0,0,800,400);
 
 //press down
 var onoff= false;
-var oldx = -10;
-var oldy = -10;
+var oldx = -130;
+var oldy = -40;
 //default
 var linecolor = "black"
 var penvalue = 5;
@@ -75,8 +75,8 @@ canvas.addEventListener("mouseup",up,false);
 function down(event)
 {
   onoff=true;
-  oldx=event.pageX-215;
-  oldy=event.pageY-325;
+  oldx=event.pageX-210;
+  oldy=event.pageY-190;
 }
 function up()
 {
@@ -88,8 +88,8 @@ function draw(event)
 {
   if(onoff==true)
     {
-      var newx=event.pageX-215;
-      var newy=event.pageY-325;
+      var newx=event.pageX-210;
+      var newy=event.pageY-190;
       rect.beginPath();
       rect.moveTo(oldx,oldy);
       rect.lineTo(newx,newy);
