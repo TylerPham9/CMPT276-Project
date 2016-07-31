@@ -14,11 +14,11 @@
             <!--<nav>-->
                 <ul class ="nav navbar-nav">
                     <li><%= link_to image_tag("title.svg", height: '57.5px', width: '190px', alt: "DrawParty"), "/" %></li>
-                    <li><%= link_to 'Home', "/", :class => is_active?("home") %></li>
-                    <li><%= link_to 'About', '/about', :class => is_active?("about") %></li>
-                    <li><%= link_to 'Help', '/help', :class => is_active?("help") %></li>
+                    <li><%= link_to 'HOME', "/", :class => is_active?("home") %></li>
+                    <li><%= link_to 'ABOUT', '/about', :class => is_active?("about") %></li>
+                    <li><%= link_to 'HELP', '/help', :class => is_active?("help") %></li>
                     <% if logged_in? %>
-                        <li><%= link_to 'Play', '/lobbies' %></li>
+                        <li><%= link_to 'PLAY', '/lobbies' %></li>
                     <% end %>
                 </ul>
             <!--</nav>-->
@@ -31,11 +31,11 @@
                              <li id="usernameID"><%= link_to(current_user.username, user_path(current_user)) %></li>
                         <% end %>
 
-                        <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                        <li><%= link_to "LOG OUT", logout_path, method: :delete %></li>
 
                     <% else %>
-                        <li><%= link_to 'Sign Up', signup_url %></li>
-                        <li><%= link_to 'Log in', login_path %></li>
+                        <li><%= link_to 'SIGN UP', signup_url %></li>
+                        <li><%= link_to 'LOG IN', login_path %></li>
                     <% end %>
                 </ul>
             <!--</nav>-->

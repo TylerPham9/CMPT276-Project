@@ -10,13 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- // @import "bootstrap-sprockets";
- // @import "bootstrap";
+ *= require_self
+
 
  *= require_tree .
- *= require_self
+ 
  */
-
+ //@import "bootstrap-sprockets";
+ //@import "bootstrap";
 
 
 $dark-color:  #2A388F;
@@ -47,7 +48,9 @@ background-color:gray;
     
 }
 .navbar-nav > li > a{
-    line-height: 50px;
+    line-height: 50px !important;
     // padding-top: 19px;
     // padding-bottom: 19px;
+    color:white;
+    
 }
