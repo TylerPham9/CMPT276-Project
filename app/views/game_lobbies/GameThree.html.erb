@@ -25,19 +25,21 @@
   <div class="panel-body">
     <form id="chat">
       <div class="input-group">
-        <input type="text" class="form-control" id="chat-input" />
+        <input type="text" class="form-control" id="chat-input"/>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-default">Send Message</button>
+          <input type='text' class="basic"/>
+          
         </span>
       </div>
     </form>
   </div>
 </div>
 
-
       </div>
     </div>
   </div>
+<input id="basic-log" type="hidden" value="#000000" />
 <script type="text/javascript">
 
 var $input = $('#chat-input'); 
@@ -49,7 +51,14 @@ var pubnub = PUBNUB.init({
 	 publish_key: 'pub-c-39594782-c4b0-4fb3-80fe-74e262353bf6',
 	 subscribe_key: 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe',
 	 uuid: user,
-	 heartbeat: 10
+	 heartbeat: 10,
+});
+
+$(".basic").spectrum({
+    change: function(color) {
+   $("#basic-log").val(color.toHexString()); //setting hidden input to color to grab later
+   document.getElementById("chat-input").setAttribute("style", "color:" + color.toHexString()); //setting input color
+    }
 });
 
 
@@ -57,7 +66,7 @@ $('#chat').submit(function() {
   pubnub.publish({
     channel: channel,
     message: {
-      text: $input.val(),
+      text: $input.val() + "|" + $('#basic-log').val(), //must send code for color to be parsed by other client  (adding | at end of string eliminates color)
       username: user
     }
     
@@ -74,16 +83,22 @@ $('#log-out').on("click", function(){
   
 });
 
-
 pubnub.subscribe({
   channel: channel, 
   message: function(data) { 
   
-    var $line = $('<li class="list-group-item"><strong>' + data.username + ':</strong> </span>');
-    var $message = $('<span class="text" />').text(data.text).html();
+    var color = (data.text).split("|")[1];
+    var userMessage = (data.text).split("|")[0];
     
+    var $line = $('<li class="list-group-item"><strong>' + data.username + ': </strong> ');
+    var $message = $('<span class="text" name="' + color + '">' + userMessage + '</span>');
+
+
     $line.append($message);
     $output.append($line);
+   
+    var array =  document.getElementsByName(color);
+    array[array.length - 1].setAttribute("style", "color:" + color);
     $output.scrollTop($output[0].scrollHeight);
   },
   
@@ -100,9 +115,7 @@ pubnub.subscribe({
     {
         $('#' + data.uuid).remove();
     }
-    
   }
 });
-
 </script>
  
