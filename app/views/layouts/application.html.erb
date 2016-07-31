@@ -1,44 +1,104 @@
 <!DOCTYPE html>
 <html>
+    
+<style>
+.dropbtn {
+    background-color:#000000;
+    color: #ffffff;
+    padding: 8px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding-right:50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #c0c0c0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    font-weight:bold;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ffffff}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #ffffff;
+    color: #000000;
+}
+</style>    
+    
+    
+
+    
 <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    	<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <%= csrf_meta_tags %>
 </head>
 
 
 <body>
     <div class="header navbar-static-top">
-
-        <%= link_to image_tag("title.svg", alt: "DrawParty"), "/" %>
-
-
         <div class = "navHeader container-fluid">
             <!--<nav>-->
                 <ul class ="nav navbar-nav">
-                    <li><%= link_to 'Home', "/", :class => is_active?("home") %></li>
-                    <li><%= link_to 'About', '/about', :class => is_active?("about") %></li>
-                    <li><%= link_to 'Help', '/help', :class => is_active?("help") %></li>
+                    <li><%= link_to image_tag("title.svg", height: '57.5px', width: '190px', alt: "DrawParty"), "/" %></li>
+                    <li><%= link_to 'HOME', "/", :class => is_active?("home") %></li>
+                    <li><%= link_to 'ABOUT', '/about', :class => is_active?("about") %></li>
+                    <li><%= link_to 'HELP', '/help', :class => is_active?("help") %></li>
                     <% if logged_in? %>
-                        <li><%= link_to 'Play', '/lobbies' %></li>
+                        <li><%= link_to 'PLAY', '/lobbies' %></li>
                     <% end %>
                 </ul>
             <!--</nav>-->
             <!--<nav>-->
                 <ul class ="nav navbar-nav navbar-right">
                     <% if logged_in? %>
+                    
+                        <div class="dropdown" style="float:right;">
+                            <button class="dropbtn">Account</button>
+                            <div class="dropdown-content">
+                        
+                    
                         <% if current_user.guest %>
                             <li id="usernameID"><%= link_to(current_user.username, ) %></li>
                         <% else %>
                              <li id="usernameID"><%= link_to(current_user.username, user_path(current_user)) %></li>
                         <% end %>
 
-                        <li><%= link_to "Log out", logout_path, method: :delete %></li>
+                        <li><%= link_to "LOG OUT", logout_path, method: :delete %></li>
+                        
+                        
+                        
+                            </div>
+                        </div>
 
                     <% else %>
-                        <li><%= link_to 'Sign Up', signup_url %></li>
-                        <li><%= link_to 'Log in', login_path %></li>
+                        <li><%= link_to 'SIGN UP', signup_url %></li>
+                        <li><%= link_to 'LOG IN', login_path %></li>
                     <% end %>
                 </ul>
             <!--</nav>-->

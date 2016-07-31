@@ -1,0 +1,60 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+
+
+ *= require_tree .
+ 
+ */
+ //@import "bootstrap-sprockets";
+ //@import "bootstrap";
+
+
+$dark-color:  #2A388F;
+$light-color: #27A9E1;
+
+body {
+background-color: #EEEEEE !important;
+		font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+//     height: 100%;
+    
+//     background: #2A388F;
+//     background: -webkit-linear-gradient(-45deg, #FFFFFF, $light-color, $dark-color); /* For Safari 5.1 to 6.0 */
+//     background: -o-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Opera 11.1 to 12.0 */
+//     background: -moz-linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* For Firefox 3.6 to 15 */
+//     background: linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* Standard syntax (must be last) */
+//     background-repeat: no-repeat;
+// }
+a:active, a:hover {
+    outline: 0;
+    background-color: #222 !important;
+}
+.container {
+    margin-top: 0px;
+    background-color: rgba(255,255,255, 0.6);
+    width:80% !important;
+    border-radius:0px;
+    padding: 25px;
+    // border: 3px solid $dark-color;
+    background:#FFF;
+    
+}
+.navbar-nav > li > a{
+    line-height: 60px !important;
+    // padding-top: 19px;
+    // padding-bottom: 19px;
+    color:white;
+    
+    
+}
