@@ -3,105 +3,163 @@
 
 <style>
 #canvas{crusor:crosshair !important;}
-
+ 
 
 </style>
+<body>
+ 
+ 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body oncontextmenu="return false;" onselectstart="return false;">
 
 
-<div id="draw">
-<canvas id="canvas" width="800" height="400" margin-left:400px; style="border:solid black 2px;"> </canvas>
+
 <br>
-<label>Colors</label>
+
+
+
+<canvas id='canvas' style="border:2px solid black;margin:18px; background-color:#FAFAFA "></canvas>
+<br>
+<%= link_to image_tag("Paint Palette-48.png", height: '48px', width: '48px', alt: "palette") %>
 <input class="button" type="button" value="red" onClick="linecolor='red'">
 <input type="button" value="yellow" onClick="linecolor='yellow'">
 <input type="button" value="green" onClick="linecolor='green'">
 <input type="button" value="blue" onClick="linecolor='blue'">
 <input type="button" value="black" onClick="linecolor='black'">
 <input type="button" value="purple" onClick="linecolor='purple'">
-<input type="button" value="eraser" onClick="linecolor='white';penvalue='50'">
 <br>
-<label> Width </label>
-
-<input type="button" value="5" onClick="penvalue='5'">
-<input type="button" value="10" onClick="penvalue='10'">
-<input type="button" value="15" onClick="penvalue='15'">
-<input type="button" value="20" onClick="penvalue='20'">
-<input type="button" value="30" onClick="penvalue='30'">
-<input type="button" value="60" onClick="penvalue='60'">
+<%= link_to image_tag("Line Width-48.png", height: '40px', width: '40px', alt: "widths") %>
+<input type="button" value="  5  " onClick="lineWidth='5'">
+<input type="button" value="  10  " onClick="lineWidth='10'">
+<input type="button" value="  15  " onClick="lineWidth='15'">
+<input type="button" value="  20  " onClick="lineWidth='20'">
+<input type="button" value="  30  "  onClick="lineWidth='30'">
+<input type="button" value="  60  " onClick="lineWidth='60'">
 <br>
 
-</div>
-</td>
+  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;    
+<input type="button" value="Eraser" onClick="linecolor='#FAFAFA';lineWidth='30'">
+   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+<button id='clr'>Clear</button>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+<button type="button" onclick="saveImage()">Save</button>
+ 
+ <br>
+ <br>
 
-<script type="text/javascript">
+<script>
+var linecolor = "black";
+var lineWidth = 20;
+var canvas = document.getElementById('canvas');
+canvas.addEventListener('mousedown', onMouseDown, false);
+canvas.addEventListener('mousemove', onMouseMove, false);
+canvas.addEventListener('mouseup', onMouseUp, false);
+canvas.addEventListener('touchstart',onMouseDown,false);
+canvas.addEventListener('touchmove',onMouseMove,false);
+canvas.addEventListener('touchend',onMouseUp,false)
 
-var canvas = document.getElementById("canvas");
-var rect = canvas.getContext("2d");
-
-
-function change()
+canvas.height = 600;
+canvas.width = getWidth() - 580;
+var ctx = canvas.getContext('2d');
+var flag = false;
+function onMouseMove(evt)
 {
-  document.getElementById("image").src=canvas.toDataURL("image/jpg");
+	evt.preventDefault();
+	if (flag)
+	{
+		var po = pos(evt);	
+		ctx.lineTo(po.x, po.y);
+		ctx.strokeStyle= linecolor;
+		ctx.lineWidth = lineWidth; 
+	
+		ctx.stroke();
+	}
 }
-
-// width of pen
-window.onload = function()
+ 
+function onMouseDown(evt)
 {
-  var pen = document.getElementById("select");
-  pen.onchange=function()
-  {
-    penvalue=pen.value; // penvalue=pen
-  }
+	evt.preventDefault();
+	ctx.beginPath();
+	var position = pos(evt);
+	ctx.moveTo(position.x, position.y);
+	flag = true;
 }
-
-
-
-rect.fillstyle="black";
-rect.fillRect=(0,0,800,400);
-
-//press down
-var onoff= false;
-var oldx = -130;
-var oldy = -40;
-//default
-var linecolor = "black"
-var penvalue = 5;
-
-canvas.addEventListener("mousemove",draw,true);
-canvas.addEventListener("mousedown",down,false);
-canvas.addEventListener("mouseup",up,false);
-
-
-function down(event)
+ 
+ 
+function onMouseUp(evt)
 {
-  onoff=true;
-  oldx=event.pageX-210;
-  oldy=event.pageY-190;
+	evt.preventDefault();
+	flag = false;
 }
-function up()
+ 
+ 
+function saveImage() 
 {
-  onoff=false;
-}
-
-
-function draw(event)
-{
-  if(onoff==true)
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("Chrome") > 0) 
     {
-      var newx=event.pageX-210;
-      var newy=event.pageY-190;
-      rect.beginPath();
-      rect.moveTo(oldx,oldy);
-      rect.lineTo(newx,newy);
-      rect.strokeStyle=linecolor;
-      rect.lineWidth=penvalue;
-      rect.lineCap="round";
-      rect.stroke();
-
-      oldx=newx;
-      oldy=newy;
+    	var link = document.createElement('a');
+        link.download = "MyWork!.png";
+        link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");;
+        link.click();
+	}
+    else 
+    {
+    	alert("Please use Chrome");
     }
-  }
+}
+ 
+var clear = document.getElementById('clr');
+	clear.addEventListener('click',function()
+{
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+},false);
+ 
+ 
+function pos(event)
+{
+	var x,y;
+	if(isTouch(event))
+	{
+		x = event.touches[0].pageX;
+		y = event.touches[0].pageY;
+	}
+	else
+	{
+		x = event.layerX;
+		y = event.layerY;
+	}
+	return {x:x,y:y};
+}
 
 
-  </script>
+ 
+function isTouch(event)
+{
+	var type = event.type;
+	if(type.indexOf('touch')>=0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+ 
+function getWidth()
+{
+	var xWidth = null;
+	if (window.innerWidth !== null) 
+	{
+		xWidth = window.innerWidth;	
+	}
+	else 
+	{
+		xWidth = document.body.clientWidth;
+	}
+	return xWidth;
+}
+</script>
+</body>
