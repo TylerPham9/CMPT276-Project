@@ -119,6 +119,7 @@ function pos(event)
  
 function isTouch(event)
 {
+<<<<<<< HEAD
 	var type = event.type;
 	if(type.indexOf('touch')>=0)
 	{
@@ -145,3 +146,24 @@ function getWidth()
 }
 </script>
  
+=======
+  if(onoff==true)
+    {
+      var newx=event.pageX-210;
+      var newy=event.pageY-190;
+      rect.beginPath();
+      rect.moveTo(oldx,oldy);
+      rect.lineTo(newx,newy);
+      rect.strokeStyle=linecolor;
+      rect.lineWidth=penvalue;
+      rect.lineCap="round";
+      rect.stroke();
+
+      oldx=newx;
+      oldy=newy;
+    }
+  }
+
+
+  </script>
+>>>>>>> d997e283bda576a0bbefd24de974c6e6305d4f3a
