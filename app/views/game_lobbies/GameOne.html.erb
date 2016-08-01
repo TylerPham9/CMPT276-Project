@@ -38,10 +38,12 @@
 <input type="button" value="  60  " onClick="lineWidth='60'">
 <br>
 
-  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-<input type="button" value="eraser" onClick="linecolor='#FAFAFA';lineWidth='30'">
-   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-<button id='clr'>clear</button
+  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;    
+<input type="button" value="Eraser" onClick="linecolor='#FAFAFA';lineWidth='30'">
+   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+<button id='clr'>Clear</button>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+<button type="button" onclick="saveImage()">Save</button>
  
  <br>
  <br>
@@ -56,8 +58,7 @@ canvas.addEventListener('mouseup', onMouseUp, false);
 canvas.addEventListener('touchstart',onMouseDown,false);
 canvas.addEventListener('touchmove',onMouseMove,false);
 canvas.addEventListener('touchend',onMouseUp,false)
- 
- 
+
 canvas.height = 600;
 canvas.width = getWidth() - 580;
 var ctx = canvas.getContext('2d');
@@ -71,6 +72,7 @@ function onMouseMove(evt)
 		ctx.lineTo(po.x, po.y);
 		ctx.strokeStyle= linecolor;
 		ctx.lineWidth = lineWidth; 
+	
 		ctx.stroke();
 	}
 }
@@ -91,6 +93,22 @@ function onMouseUp(evt)
 	flag = false;
 }
  
+ 
+function saveImage() 
+{
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("Chrome") > 0) 
+    {
+    	var link = document.createElement('a');
+        link.download = "MyWork!.png";
+        link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");;
+        link.click();
+	}
+    else 
+    {
+    	alert("Please use Chrome");
+    }
+}
  
 var clear = document.getElementById('clr');
 	clear.addEventListener('click',function()
