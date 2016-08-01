@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'playerIndex' => 'game_lobbies#playerIndex'
   
   
-  get 'lobbies' => 'game_lobbies#GameLobby'
+  get 'lobbies' => 'game_lobbies#GameThree'
   get 'lobbies/GameOne' => 'game_lobbies#GameOne'
   get 'lobbies/GameTwo' => 'game_lobbies#GameTwo'
   get 'lobbies/GameThree' => 'game_lobbies#GameThree'
