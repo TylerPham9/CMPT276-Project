@@ -1,12 +1,12 @@
-<% provide(:title, 'Game One') %>
+<% provide(:title, 'Singleplayer') %>
 <h1>Singleplayer</h1>
 
 <style>
 #canvas{crusor:crosshair !important;}
-
+ 
 
 </style>
- 
+<body>
  
  
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,7 @@
 
 <canvas id='canvas' style="border:2px solid black;margin:18px; background-color:#FAFAFA "></canvas>
 <br>
-
- <label>Colors</label>
+<%= link_to image_tag("Paint Palette-48.png", height: '48px', width: '48px', alt: "palette") %>
 <input class="button" type="button" value="red" onClick="linecolor='red'">
 <input type="button" value="yellow" onClick="linecolor='yellow'">
 <input type="button" value="green" onClick="linecolor='green'">
@@ -30,7 +29,7 @@
 <input type="button" value="black" onClick="linecolor='black'">
 <input type="button" value="purple" onClick="linecolor='purple'">
 <br>
- <label> Width </label>
+<%= link_to image_tag("Line Width-48.png", height: '40px', width: '40px', alt: "widths") %>
 <input type="button" value="  5  " onClick="lineWidth='5'">
 <input type="button" value="  10  " onClick="lineWidth='10'">
 <input type="button" value="  15  " onClick="lineWidth='15'">
@@ -38,11 +37,14 @@
 <input type="button" value="  30  "  onClick="lineWidth='30'">
 <input type="button" value="  60  " onClick="lineWidth='60'">
 <br>
- 
-<button id='clr'>clear</button>
-<br>
 
-<input type="button" value="eraser" onClick="linecolor='#FAFAFA';lineWidth='30'">
+  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;    
+<input type="button" value="Eraser" onClick="linecolor='#FAFAFA';lineWidth='30'">
+   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+<button id='clr'>Clear</button>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+<button type="button" onclick="saveImage()">Save</button>
+ 
  <br>
  <br>
 
@@ -56,10 +58,9 @@ canvas.addEventListener('mouseup', onMouseUp, false);
 canvas.addEventListener('touchstart',onMouseDown,false);
 canvas.addEventListener('touchmove',onMouseMove,false);
 canvas.addEventListener('touchend',onMouseUp,false)
- 
- 
+
 canvas.height = 600;
-canvas.width = getWidth() - 550;
+canvas.width = getWidth() - 580;
 var ctx = canvas.getContext('2d');
 var flag = false;
 function onMouseMove(evt)
@@ -67,10 +68,11 @@ function onMouseMove(evt)
 	evt.preventDefault();
 	if (flag)
 	{
-		var p = pos(evt);
-		ctx.lineTo(p.x, p.y);
+		var po = pos(evt);	
+		ctx.lineTo(po.x, po.y);
 		ctx.strokeStyle= linecolor;
 		ctx.lineWidth = lineWidth; 
+	
 		ctx.stroke();
 	}
 }
@@ -91,6 +93,22 @@ function onMouseUp(evt)
 	flag = false;
 }
  
+ 
+function saveImage() 
+{
+    var ua = window.navigator.userAgent;
+    if (ua.indexOf("Chrome") > 0) 
+    {
+    	var link = document.createElement('a');
+        link.download = "MyWork!.png";
+        link.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");;
+        link.click();
+	}
+    else 
+    {
+    	alert("Please use Chrome");
+    }
+}
  
 var clear = document.getElementById('clr');
 	clear.addEventListener('click',function()
@@ -119,7 +137,6 @@ function pos(event)
  
 function isTouch(event)
 {
-<<<<<<< HEAD
 	var type = event.type;
 	if(type.indexOf('touch')>=0)
 	{
@@ -145,25 +162,4 @@ function getWidth()
 	return xWidth;
 }
 </script>
- 
-=======
-  if(onoff==true)
-    {
-      var newx=event.pageX-210;
-      var newy=event.pageY-190;
-      rect.beginPath();
-      rect.moveTo(oldx,oldy);
-      rect.lineTo(newx,newy);
-      rect.strokeStyle=linecolor;
-      rect.lineWidth=penvalue;
-      rect.lineCap="round";
-      rect.stroke();
-
-      oldx=newx;
-      oldy=newy;
-    }
-  }
-
-
-  </script>
->>>>>>> d997e283bda576a0bbefd24de974c6e6305d4f3a
+</body>
