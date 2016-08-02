@@ -36,7 +36,7 @@ background-color: #EEEEEE !important;
 //     background: linear-gradient(135deg, #FFFFFF, $light-color, $dark-color); /* Standard syntax (must be last) */
 //     background-repeat: no-repeat;
 // }
-a:active, a:hover {
+.navbar-nav > li > a:active, .navbar-nav > li > a:hover {
     outline: 0;
     background-color: #222 !important;
 }
